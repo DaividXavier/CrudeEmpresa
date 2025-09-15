@@ -1,5 +1,7 @@
 package com.example.crudSpring.projetoCRUD.SERVICE;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.relational.core.conversion.SaveBatchingAggregateChange;
 import org.springframework.stereotype.Service;
 import com.example.crudSpring.projetoCRUD.ENTITY.Empresa;
@@ -32,5 +34,17 @@ public class EmpresaService {
        public void deletarEmpresa(Empresa dadosEmpresa){
         empresaRepository.delete(dadosEmpresa);
        }
+
+       //realiza a busca de dados usando o id criado na classe 
+       public Optional<Empresa> BuscaPorId(Long id){
+        return empresaRepository.findById(id);
+       }
+
+
+       public Empresa editarDadoEmpresa(Long id, Empresa dadosAtualizados){
+        return null;
+       }
+
+
 
 }
