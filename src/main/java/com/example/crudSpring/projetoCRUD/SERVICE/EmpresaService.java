@@ -36,15 +36,20 @@ public class EmpresaService {
        }
 
        //realiza a busca de dados usando o id criado na classe 
-       public Optional<Empresa> BuscaPorId(Long id){
+       public Optional<Empresa> buscaPorId(Long id){
         return empresaRepository.findById(id);
        }
 
-
+//get seria pegar esses dados do BDD;
+//set seria "setar" os dados do BDD
        public Empresa editarDadoEmpresa(Long id, Empresa dadosAtualizados){
-        return null;
-       }
-
-
-
+        Empresa empresaBuscada = buscaPorId(id).orElseThrow(() -> new IllegalArgumentException("Empresa não encontrada"));
+        empresaBuscada.setNome_empresa(dadosAtualizados.getNome_empresa());
+        empresaBuscada.setRamo(dadosAtualizados.getRamo());
+        empresaBuscada.setCnpj(dadosAtualizados.getCnpj());
+        return empresaRepository.save(empresaBuscada);
+    }
+    public List<Empresa> buscarEmpresaPorNome(String nome_empresa){
+        return empresaRepository.findByNome_empresaContainingIgnoreCase(nome_empresa);
+    }
 }
