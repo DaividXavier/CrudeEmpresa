@@ -44,12 +44,12 @@ public class EmpresaService {
 //set seria "setar" os dados do BDD
        public Empresa editarDadoEmpresa(Long id, Empresa dadosAtualizados){
         Empresa empresaBuscada = buscaPorId(id).orElseThrow(() -> new IllegalArgumentException("Empresa não encontrada"));
-        empresaBuscada.setNome_empresa(dadosAtualizados.getNome_empresa());
+        empresaBuscada.setNome(dadosAtualizados.getNome());
         empresaBuscada.setRamo(dadosAtualizados.getRamo());
         empresaBuscada.setCnpj(dadosAtualizados.getCnpj());
         return empresaRepository.save(empresaBuscada);
     }
     public List<Empresa> buscarEmpresaPorNome(String nome_empresa){
-        return empresaRepository.findByNome_empresaContainingIgnoreCase(nome_empresa);
+        return empresaRepository.findByNomeContainingIgnoreCase(nome_empresa);
     }
 }
