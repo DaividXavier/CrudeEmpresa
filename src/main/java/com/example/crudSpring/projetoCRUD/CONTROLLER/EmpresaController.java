@@ -6,9 +6,13 @@ import org.springframework.ui.Model;
 import com.example.crudSpring.projetoCRUD.ENTITY.Empresa;
 import com.example.crudSpring.projetoCRUD.SERVICE.EmpresaService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 
@@ -21,12 +25,21 @@ public class EmpresaController {
         this.empresaService = ligacaoEmpresaService;
     }
 
+//chamada para o listar todas as empresas
+
+
+
+
     @GetMapping("/viewCadEmpresa")
     
     public String mostrarFormCadastro(Model oModel){
         oModel.addAttribute("empresa", new Empresa());
         return "cadastroEmpresa";
     }
-
-
+@PostMapping("/salvarEmpresa")
+public String salvarEmpresa(@ModelAttribute Empresa objempresa) {
+    //chamando o metodo cadastrar e passando o objeto ("pacotinho") com os dados que precisam ser salvos 
+    empresaService.cadastrarEmpresa(objempresa);
+    return "redirect:/empresaCTR/viewCadEmpresa";
+}
 }           
