@@ -25,21 +25,27 @@ public class EmpresaController {
         this.empresaService = ligacaoEmpresaService;
     }
 
+
 //chamada para o listar todas as empresas
 
-
+    @GetMapping("/listarTodasEmpresas")
+    public String listarEmpresas(Model oModel){
+        oModel.addAttribute("empresas", empresaService.findAll());
+        return "listarEmpresas";
+    }
 
 
     @GetMapping("/viewCadEmpresa")
-    
     public String mostrarFormCadastro(Model oModel){
         oModel.addAttribute("empresa", new Empresa());
         return "cadastroEmpresa";
     }
+
+
 @PostMapping("/salvarEmpresa")
 public String salvarEmpresa(@ModelAttribute Empresa objempresa) {
     //chamando o metodo cadastrar e passando o objeto ("pacotinho") com os dados que precisam ser salvos 
     empresaService.cadastrarEmpresa(objempresa);
-    return "redirect:/empresaCTR/viewCadEmpresa";
+    return "redirect:/empresaCTR/listarTodasEmpresas";
 }
 }           
