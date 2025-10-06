@@ -7,6 +7,7 @@ import com.example.crudSpring.projetoCRUD.ENTITY.Empresa;
 import com.example.crudSpring.projetoCRUD.SERVICE.EmpresaService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -48,4 +49,24 @@ public String salvarEmpresa(@ModelAttribute Empresa objempresa) {
     empresaService.cadastrarEmpresa(objempresa);
     return "redirect:/empresaCTR/listarTodasEmpresas";
 }
+
+
+@GetMapping("/editar/{id}")
+public String formEditar(@PathVariable("id") Long id, Model oModel) {
+    Empresa objEmpresa = empresaService.buscaPorId(id)
+        .orElseThrow(() -> new IllegalArgumentException("Empresa não encontrada"));
+ 
+    oModel.addAttribute("empresaEditar", objEmpresa);
+    return "editarEmpresa";
+}
+
+@PostMapping("/atualizarEmpresa/{id}")
+public String atualizarEmpresa(@PathVariable Long id, @ModelAttribute Empresa objEmpresaAtualizada) {
+    //TODO: process POST request
+    
+    return "redirect:/empresaCTR/listarTodasEmpresas";
+}
+
+
+
 }           
