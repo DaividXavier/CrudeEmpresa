@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
-
-
 @Controller
 @RequestMapping("/empresaCTR")
 
@@ -26,7 +24,6 @@ public class EmpresaController {
         this.empresaService = ligacaoEmpresaService;
     }
 
-
 //chamada para o listar todas as empresas
 
     @GetMapping("/listarTodasEmpresas")
@@ -35,13 +32,11 @@ public class EmpresaController {
         return "listarEmpresas";
     }
 
-
     @GetMapping("/viewCadEmpresa")
     public String mostrarFormCadastro(Model oModel){
         oModel.addAttribute("empresa", new Empresa());
         return "cadastroEmpresa";
     }
-
 
 @PostMapping("/salvarEmpresa")
 public String salvarEmpresa(@ModelAttribute Empresa objempresa) {
@@ -49,7 +44,6 @@ public String salvarEmpresa(@ModelAttribute Empresa objempresa) {
     empresaService.cadastrarEmpresa(objempresa);
     return "redirect:/empresaCTR/listarTodasEmpresas";
 }
-
 
 @GetMapping("/editar/{id}")
 public String formEditar(@PathVariable("id") Long id, Model oModel) {
@@ -60,10 +54,21 @@ public String formEditar(@PathVariable("id") Long id, Model oModel) {
     return "editarEmpresa";
 }
 
+//PathVarieble está pegando o id que vem do BDD
+
 @PostMapping("/atualizarEmpresa/{id}")
-public String atualizarEmpresa(@PathVariable Long id, @ModelAttribute Empresa objEmpresaAtualizada) {
+public String atualizarEmpresa(@PathVariable ("id") Long id, @ModelAttribute Empresa objEmpresaAtualizada) {
+
+    empresaService.editarDadoEmpresa(id, objEmpresaAtualizada);
     //TODO: process POST request
     
+    return "redirect:/empresaCTR/listarTodasEmpresas";
+}
+@GetMapping("/deletarEmpresa/{id}")
+public String apagarEmpresa(@PathVariable ("id") Long id) {
+
+empresaService.deletarEmpresa(id);
+
     return "redirect:/empresaCTR/listarTodasEmpresas";
 }
 
