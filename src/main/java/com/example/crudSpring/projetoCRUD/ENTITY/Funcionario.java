@@ -1,5 +1,4 @@
 package com.example.crudSpring.projetoCRUD.ENTITY;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,16 +19,17 @@ import lombok.Setter;
 public class Funcionario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "codigo", nullable = false, unique=true)
+
+    @Column(name = "codigo", nullable = false, unique = true)
     private Long codigo;
-   
+
     @Column(name = "nome", nullable = false, length=100)
     private String nome;
 
-    @Column(name = "cargo", nullable = false, length = 100)
+    @Column(name = "cargo", nullable = false, length=20, unique=true)
     private String cargo;
 
-    @Column(name = "salario", nullable = false, unique=true)
+    @Column(name = "salario", nullable = false, length=100)
     private double salario;
 
     @ManyToOne
@@ -43,5 +43,6 @@ public class Funcionario {
         this.salario = salario;
         this.identificadorEmpresa = identificadorEmpresa;
     }
+    
     
 }
