@@ -2,58 +2,109 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Listar Funcionários</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Empresas</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <style>
-    table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-    }
+        body {
+            background-color: #E0FFFF;            font-family: 'Arial', sans-serif;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #343a40;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .table th {
+            background-color: #007bff;
+            color: white;
+        }
+        .btn-edit {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+        .btn-edit:hover {
+            background-color: #0056b3;
+            color: white;
+        }
+        .btn-delete {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+        .btn-delete:hover {
+            background-color: #c82333;
+            color: white;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
     </style>
-
 </head>
 <body>
 
-<h2>Lista de Funcionários</h2>
+    <div class="container">
+        <h2>Lista de Empresas</h2>
 
-<table border="1">
-    <thead>
-        <tr>
-            <th>Codigo</th>
-            <th>Nome</th>
-            <th>Cargo</th>
-            <th>Salário</th>
-            <th>Empresa</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr th:each="func : ${funcionarios}">
-            <td th:text="${func.codigo}"></td>
-            <td th:text="${func.nome}"></td>
-            <td th:text="${func.cargo}"></td>
-            <td th:text="${func.salario}"></td>
-            <td th:text="${func.identificadorEmpresa.nome}"></td>
-            <td>
-                <td>
-                    <a th:href="@{/funcionarioCTR/formAtualizar/{id}(id=${func.codigo})}">
-                        Editar
-                    </a>
-                
-                    <a th:href="@{/funcionarioCTR/deletarFuncionario/{id}(id=${func.codigo})}"
-                       onclick="return confirm('Deseja realmente excluir este Funcionário?')">
-                       Excluir
-                    </a>
-                </td>
-                
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>CNPJ</th>
+                        <th>Ramo</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Loop para listar todas as empresas -->
+                    <tr th:each="empresa : ${empresas}">
+                        <td th:text="${empresa.id_empresa}"></td>
+                        <td th:text="${empresa.nome}"></td>
+                        <td th:text="${empresa.cnpj}"></td>
+                        <td th:text="${empresa.ramo}"></td>
+                        <td>
+                            <!-- Botão Editar -->
+                            <a th:href="@{/empresaCTR/editar/{id}(id=${empresa.id_empresa})}" class="btn-edit">Editar</a>
+                            
+                            <!-- Botão Excluir -->
+                            <a th:href="@{/empresaCTR/deletarEmpresa/{id}(id=${empresa.id_empresa})}" 
+                               class="btn-delete" 
+                               onclick="return confirm('Deseja realmente excluir esta empresa?')">Excluir</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-            </td>
-        </tr>
-    </tbody>
-</table>
+        <div class="text-center mt-4">
+            <a th:href="@{/empresaCTR/viewCadEmpresa}" class="btn btn-primary">Cadastrar Nova Empresa</a>
+        </div>
+    </div>
 
-<br>
-<a th:href="@{/funcionarioCTR/formFuncionario}">Cadastrar Novo Funcionário</a>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

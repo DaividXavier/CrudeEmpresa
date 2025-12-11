@@ -82,10 +82,7 @@ public class FuncionarioController {
         if (nome != null && !nome.isBlank()) {
             model.addAttribute("funcionarioNome",
                     ligacaoFuncionarioService.buscarFuncionarioPorNome(nome));
-        } else {
-            model.addAttribute("funcionarioNome", null);
-        }
-
+        } 
         model.addAttribute("paramNome", nome);
 
         return "buscarFuncNome";
